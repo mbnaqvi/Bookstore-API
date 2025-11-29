@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1001,
+    "title": "The Silent Forest",
+    "author": "Emma Clarke",
+    "price": 499
+  },
+  {
+    "id": 1002,
+    "title": "Whispers of the Past",
+    "author": "Sofia Ramirez",
+    "price": 950
+  },
+  {
+    "id": 1003,
+    "title": "1984",
+    "author": "George Orwell",
+    "price": 775
+  },
+  {
+    "id": 1004,
+    "title": "The Last Sunrise",
+    "author": "Noah Bennett",
+    "price": 1290 }
+]
