@@ -1,16 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const booksData = require('../books.json');
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, '../books.json');
 
-let books = [...booksData];
+function readBooks() {
+  const data = fs.readFileSync(filePath, 'utf8');
+  return JSON.parse(data);
+}
+
+function writeBooks(books) {
+  fs.writeFileSync(filePath, JSON.stringify(books, null, 2), 'utf8');
+}
+
+let books = readBooks();
 let nextId = books.length > 0 ? Math.max(...books.map(b => b.id)) + 1 : 1;
 
 router.get('/', (req, res) => {
+  books = readBooks();
   res.json(books);
 });
 
 router.post('/', (req, res) => {
   const { title, author, price } = req.body;
+  books = readBooks();
   
   const newBook = {
     id: nextId++,
@@ -20,13 +33,14 @@ router.post('/', (req, res) => {
   };
   
   books.push(newBook);
+  writeBooks(books);
   res.status(201).json(newBook);
 });
 
 router.put('/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  const { title, author, price } = req.body;
-  
+  const { title, author, price } = req.body;  
+  books = readBooks();  
   const bookIndex = books.findIndex(b => b.id === id);
   
   if (bookIndex === -1) {
@@ -40,12 +54,13 @@ router.put('/:id', (req, res) => {
     price
   };
   
+  writeBooks(books);
   res.json(books[bookIndex]);
 });
 
 router.delete('/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  
+  const id = parseInt(req.params.id);  
+  books = readBooks();  
   const bookIndex = books.findIndex(b => b.id === id);
   
   if (bookIndex === -1) {
@@ -53,6 +68,7 @@ router.delete('/:id', (req, res) => {
   }
   
   books.splice(bookIndex, 1);
+  writeBooks(books);
   res.json({ message: 'Book deleted successfully' });
 });
 

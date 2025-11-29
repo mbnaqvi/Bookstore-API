@@ -21,5 +21,12 @@
     "id": 1004,
     "title": "The Last Sunrise",
     "author": "Noah Bennett",
-    "price": 1290 }
+    "price": 1290
+  },
+  {
+    "id": 1006,
+    "title": "Journey to Tomorrow",
+    "author": "Liam Foster",
+    "price": 1430
+  }
 ]
